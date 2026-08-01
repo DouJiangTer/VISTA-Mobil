@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mobile Anchor Tasks — Interaction Annotation Explorer</title>
+<meta name="description" content="Browse human interaction annotations over mobile UI screenshots: hover a highlighted component to inspect its JSON, click to follow the navigation edge.">
+<link rel="stylesheet" href="styles.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>📱</text></svg>">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="#/">
+    <span class="brand-mark">◧</span>
+    <span class="brand-text">Mobile Anchor Tasks</span>
+  </a>
+  <nav class="crumbs" id="crumbs"></nav>
+  <div class="topbar-right">
+    <button id="theme-toggle" class="icon-btn" title="Toggle theme" aria-label="Toggle theme">◐</button>
+  </div>
+</header>
+
+<main id="view" class="view"></main>
+
+<div id="tooltip" class="tooltip" hidden></div>
+
+<footer class="footer">
+  <span>Human interaction annotations over Figma-extracted mobile screens.</span>
+  <span class="sep">·</span>
+  <span>Hover a box to inspect · Click a <em>navigate</em> box to follow the edge</span>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
