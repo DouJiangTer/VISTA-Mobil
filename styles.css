@@ -294,6 +294,25 @@ code, .mono {
   text-transform: uppercase;
 }
 
+.platform-badge {
+  margin-left: 6px;
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 10px;
+  letter-spacing: .03em;
+  text-transform: uppercase;
+  vertical-align: middle;
+}
+.platform-badge.platform-mobile {
+  background: color-mix(in srgb, var(--t-other) 16%, transparent);
+  color: var(--text-muted);
+}
+.platform-badge.platform-web {
+  background: color-mix(in srgb, var(--accent) 16%, transparent);
+  color: var(--accent);
+}
+.page-head h1 .platform-badge { font-size: 11px; }
+
 .empty { padding: 60px 0; text-align: center; color: var(--text-faint); }
 
 /* ---------- detail ---------- */
@@ -312,10 +331,13 @@ code, .mono {
 .stage {
   position: relative;
   /* --ar is the screenshot aspect ratio (w/h), set per page: keep the whole
-     screen inside the viewport so the pager stays reachable. */
-  width: min(100%, 420px, calc((100vh - 168px) * var(--ar, 0.46)));
+     screen inside the viewport so the pager stays reachable. Long-scroll web
+     pages (ar well under the phone-ish default) are floored so the stage
+     doesn't collapse to an unreadable sliver — those scroll internally. */
+  width: min(100%, 480px, calc((100vh - 168px) * max(var(--ar, 0.46), 0.32)));
+  max-height: calc(100vh - 168px);
   border-radius: 14px;
-  overflow: hidden;
+  overflow: hidden auto;
   border: 1px solid var(--border);
   background: var(--bg-raised);
   box-shadow: var(--shadow);

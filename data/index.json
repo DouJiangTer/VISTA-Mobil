@@ -4,6 +4,7 @@
       "id": "01",
       "name": "Medical / HealthTrack",
       "description": "Healthcare App UI Kit — doctor booking & appointments",
+      "platform": "mobile",
       "pages": 60,
       "included": 59,
       "annotations": 409,
@@ -20,6 +21,7 @@
       "id": "02",
       "name": "Fitness / Workout",
       "description": "Fitness Coach App UI Kit — workouts & weekly challenges",
+      "platform": "mobile",
       "pages": 93,
       "included": 91,
       "annotations": 770,
@@ -36,6 +38,7 @@
       "id": "03",
       "name": "Home Decor",
       "description": "Home Decor App UI Kit — furniture shopping & room categories",
+      "platform": "mobile",
       "pages": 68,
       "included": 63,
       "annotations": 537,
@@ -52,6 +55,7 @@
       "id": "04",
       "name": "Food Delivery",
       "description": "Food Delivery App UI Kit — ordering & delivery",
+      "platform": "mobile",
       "pages": 74,
       "included": 58,
       "annotations": 800,
@@ -68,6 +72,7 @@
       "id": "05",
       "name": "Recipe / Cooking",
       "description": "Recipe App UI Kit — recipes, collections & creator profiles",
+      "platform": "mobile",
       "pages": 113,
       "included": 99,
       "annotations": 1035,
@@ -83,6 +88,7 @@
       "id": "06",
       "name": "Finance Management",
       "description": "Finance App UI Kit — accounts, transactions & security",
+      "platform": "mobile",
       "pages": 80,
       "included": 71,
       "annotations": 725,
@@ -98,6 +104,7 @@
       "id": "07",
       "name": "AI Chat / Bot Creator",
       "description": "AI Companion App UI Kit — chat, bot creation & discovery",
+      "platform": "mobile",
       "pages": 45,
       "included": 37,
       "annotations": 434,
@@ -114,6 +121,7 @@
       "id": "08",
       "name": "Shopping",
       "description": "Shopping App UI Kit — accounts, flash sales & checkout",
+      "platform": "mobile",
       "pages": 101,
       "included": 98,
       "annotations": 881,
@@ -125,6 +133,39 @@
         "scroll": 16
       },
       "cover": "01_01_Start"
+    },
+    {
+      "id": "1_newsletter",
+      "name": "Newsletter / Blog",
+      "description": "Blog Sprout UI Kit — long-form blog & newsletter publication",
+      "platform": "web",
+      "pages": 9,
+      "included": 9,
+      "annotations": 133,
+      "by_type": {
+        "click": 53,
+        "toggle": 4,
+        "navigate": 60,
+        "input": 16
+      },
+      "cover": "01_Home"
+    },
+    {
+      "id": "2_real-estate",
+      "name": "Real Estate Listings",
+      "description": "Dreams Estate UI Kit — property marketplace, buy/rent & agents",
+      "platform": "web",
+      "pages": 14,
+      "included": 14,
+      "annotations": 449,
+      "by_type": {
+        "input": 32,
+        "navigate": 129,
+        "click": 247,
+        "toggle": 40,
+        "other": 1
+      },
+      "cover": "01_sign_in"
     }
   ]
 }

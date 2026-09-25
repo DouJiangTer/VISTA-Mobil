@@ -1,11 +1,16 @@
 #!/usr/bin/env python3
 """Build the static showcase site under mobile/for_github/.
 
-Reads the annotated tasks in ../tasks/<NN>/ and emits:
-  screens/<NN>/<page>.webp        full-size screenshot (WebP, q82)
-  thumbs/<NN>/<page>.webp         gallery thumbnail (width 320)
+Reads the annotated tasks in ../tasks/<NN>/ (mobile) and ../../web/tasks/<id>/
+(web) and emits:
+  screens/<id>/<page>.webp        full-size screenshot (WebP, q82)
+  thumbs/<id>/<page>.webp         gallery thumbnail (width 320)
   data/index.json                 task list + counts
-  data/<NN>.json                  per-task pages + annotations
+  data/<id>.json                  per-task pages + annotations
+
+Mobile tasks keep screenshots and annotations side by side in the task dir;
+web tasks split them into pages/<page>.png and interaction/<page>_human_
+interaction_annotation.json.
 
 Re-runnable; skips image conversion when the .webp is newer than the .png
 (pass --force to rebuild everything).
@@ -22,19 +27,22 @@ from pathlib import Path
 from PIL import Image
 
 ROOT = Path(__file__).resolve().parent
-TASKS = ROOT.parent / "tasks"
+MOBILE_TASKS = ROOT.parent / "tasks"
+WEB_TASKS = ROOT.parent.parent / "web" / "tasks"
 
-# task id -> (display name, figma file description)
+# task id -> (display name, figma file description, platform)
 # Only the tasks listed here are published.
 TASK_META = {
-    "01": ("Medical / HealthTrack", "Healthcare App UI Kit — doctor booking & appointments"),
-    "02": ("Fitness / Workout", "Fitness Coach App UI Kit — workouts & weekly challenges"),
-    "03": ("Home Decor", "Home Decor App UI Kit — furniture shopping & room categories"),
-    "04": ("Food Delivery", "Food Delivery App UI Kit — ordering & delivery"),
-    "05": ("Recipe / Cooking", "Recipe App UI Kit — recipes, collections & creator profiles"),
-    "06": ("Finance Management", "Finance App UI Kit — accounts, transactions & security"),
-    "07": ("AI Chat / Bot Creator", "AI Companion App UI Kit — chat, bot creation & discovery"),
-    "08": ("Shopping", "Shopping App UI Kit — accounts, flash sales & checkout"),
+    "01": ("Medical / HealthTrack", "Healthcare App UI Kit — doctor booking & appointments", "mobile"),
+    "02": ("Fitness / Workout", "Fitness Coach App UI Kit — workouts & weekly challenges", "mobile"),
+    "03": ("Home Decor", "Home Decor App UI Kit — furniture shopping & room categories", "mobile"),
+    "04": ("Food Delivery", "Food Delivery App UI Kit — ordering & delivery", "mobile"),
+    "05": ("Recipe / Cooking", "Recipe App UI Kit — recipes, collections & creator profiles", "mobile"),
+    "06": ("Finance Management", "Finance App UI Kit — accounts, transactions & security", "mobile"),
+    "07": ("AI Chat / Bot Creator", "AI Companion App UI Kit — chat, bot creation & discovery", "mobile"),
+    "08": ("Shopping", "Shopping App UI Kit — accounts, flash sales & checkout", "mobile"),
+    "1_newsletter": ("Newsletter / Blog", "Blog Sprout UI Kit — long-form blog & newsletter publication", "web"),
+    "2_real-estate": ("Real Estate Listings", "Dreams Estate UI Kit — property marketplace, buy/rent & agents", "web"),
 }
 
 ANN_SUFFIX = "_human_interaction_annotation.json"
@@ -58,26 +66,34 @@ def convert(png, out, width, quality, force):
 
 
 def build_task(tid, force):
-    tdir = TASKS / tid
+    name, desc, platform = TASK_META.get(tid, (f"Task {tid}", "", "mobile"))
+    if platform == "web":
+        tdir = WEB_TASKS / tid
+        ann_dir, png_dir = tdir / "interaction", tdir / "pages"
+    else:
+        tdir = MOBILE_TASKS / tid
+        ann_dir, png_dir = tdir, tdir
     if not tdir.is_dir():
         print(f"  ! {tid}: missing directory", file=sys.stderr)
         return None
 
-    ann_files = sorted(tdir.glob(f"*{ANN_SUFFIX}"))
+    ann_files = sorted(ann_dir.glob(f"*{ANN_SUFFIX}"))
     if not ann_files:
         print(f"  ! {tid}: no annotations, skipped", file=sys.stderr)
         return None
 
+    # web tasks have no dataset_selection.json / curation pass — publish everything
     selection = {}
     sel_path = tdir / "dataset_selection.json"
     if sel_path.exists():
         selection = json.loads(sel_path.read_text())
     included_set = set(selection.get("included", []))
+    default_included = True if platform == "web" else False
 
     pages = []
     for i, af in enumerate(ann_files):
         page = af.name[: -len(ANN_SUFFIX)]
-        png = tdir / f"{page}.png"
+        png = png_dir / f"{page}.png"
         if not png.exists():
             print(f"  ! {tid}/{page}: png missing, skipped", file=sys.stderr)
             continue
@@ -115,7 +131,7 @@ def build_task(tid, force):
         pages.append(
             {
                 "name": page,
-                "included": page in included_set if included_set else bool(data.get("included")),
+                "included": page in included_set if included_set else bool(data.get("included", default_included)),
                 "w": w,
                 "h": h,
                 "figma_meta": data.get("figma_meta"),
@@ -136,8 +152,7 @@ def build_task(tid, force):
     for p in pages:
         p["inbound"] = inbound[p["name"]]
 
-    name, desc = TASK_META.get(tid, (f"Task {tid}", ""))
-    payload = {"id": tid, "name": name, "description": desc, "pages": pages}
+    payload = {"id": tid, "name": name, "description": desc, "platform": platform, "pages": pages}
     out = ROOT / "data" / f"{tid}.json"
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(payload, ensure_ascii=False, separators=(",", ":")))
@@ -151,6 +166,7 @@ def build_task(tid, force):
         "id": tid,
         "name": name,
         "description": desc,
+        "platform": platform,
         "pages": len(pages),
         "included": sum(1 for p in pages if p["included"]),
         "annotations": n_ann,

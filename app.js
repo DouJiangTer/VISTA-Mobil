@@ -149,10 +149,10 @@ async function renderIndex() {
 
   view.replaceChildren(
     el('div', { class: 'page-head' },
-      el('h1', {}, 'Mobile interaction annotations'),
+      el('h1', {}, 'Interaction annotations'),
       el('p', {},
-        'Every screen below was extracted from a Figma mobile UI kit and hand-annotated with its ' +
-        'interactive components. Open a screen to hover the highlighted regions and read the raw ' +
+        'Every screen below was extracted from a Figma mobile or web UI kit and hand-annotated with ' +
+        'its interactive components. Open a screen to hover the highlighted regions and read the raw ' +
         'annotation fields, or click a navigation region to follow the edge to its target screen.')),
 
     el('div', { class: 'summary-row' },
@@ -167,7 +167,9 @@ async function renderIndex() {
         el('a', { class: 'task-card', href: `#/${t.id}` },
           el('img', { src: `thumbs/${t.id}/${enc(t.cover)}.webp`, alt: '', loading: 'lazy' }),
           el('div', { class: 'task-card-body' },
-            el('div', { class: 'task-id' }, `task ${t.id}`),
+            el('div', { class: 'task-id' },
+              `task ${t.id}`,
+              el('span', { class: `platform-badge platform-${t.platform}` }, t.platform)),
             el('h2', {}, t.name),
             el('div', { class: 'task-desc' }, t.description),
             el('div', { class: 'stats' },
@@ -225,11 +227,11 @@ async function renderGallery(taskId, isRoot = false) {
 
   view.replaceChildren(
     el('div', { class: 'page-head' },
-      el('h1', {}, task.name),
+      el('h1', {}, task.name, el('span', { class: `platform-badge platform-${task.platform}` }, task.platform)),
       el('p', {},
         isRoot
-          ? 'Every screen below was extracted from a Figma mobile UI kit and hand-annotated with ' +
-            'its interactive components. Open a screen to hover the highlighted regions and read ' +
+          ? 'Every screen below was extracted from a Figma mobile or web UI kit and hand-annotated ' +
+            'with its interactive components. Open a screen to hover the highlighted regions and read ' +
             'the raw annotation fields, or click a navigation region to follow the edge to its ' +
             'target screen.'
           : task.description)),

@@ -1,10 +1,11 @@
-# Mobile Anchor Tasks — Interaction Annotation Explorer
+# Anchor Tasks — Interaction Annotation Explorer
 
-A static site for browsing human interaction annotations over mobile UI screens
-extracted from Figma community UI kits. Publishing 8 tasks — Medical /
-HealthTrack, Fitness / Workout, Home Decor, Food Delivery, Recipe / Cooking,
-Finance Management, AI Chat / Bot Creator, and Shopping — 634 annotated
-screens, 5591 annotations in total.
+A static site for browsing human interaction annotations over mobile and web
+UI screens extracted from Figma community UI kits. Publishing 10 tasks — 8
+mobile apps (Medical/HealthTrack, Fitness/Workout, Home Decor, Food Delivery,
+Recipe/Cooking, Finance Management, AI Chat/Bot Creator, Shopping) and 2 web
+apps (Newsletter/Blog, Real Estate Listings) — 657 annotated screens, 6173
+annotations in total.
 
 - **Gallery** — every annotated screen of an app, with its interactive regions
   outlined on the thumbnail.
@@ -26,7 +27,7 @@ screens, 5591 annotations in total.
 | `data/<task>.json` | per-task screens + annotations |
 | `screens/<task>/<page>.webp` | full-resolution screenshot |
 | `thumbs/<task>/<page>.webp` | 320px gallery thumbnail |
-| `build.py` | regenerates `data/`, `screens/` and `thumbs/` from `../tasks/` |
+| `build.py` | regenerates `data/`, `screens/` and `thumbs/` from `../tasks/` (mobile) and `../../web/tasks/` (web) |
 
 ## Run locally
 
@@ -47,14 +48,21 @@ route (enable it by selecting *GitHub Actions* as the Pages source).
 
 ## Rebuild the data
 
-`build.py` reads the annotated tasks in `../tasks/<NN>/` — the `*.png` screens
-and their `*_human_interaction_annotation.json` siblings, plus
-`dataset_selection.json` for the in-dataset flag.
+`build.py` reads annotated tasks from two layouts, keyed by each entry's
+`platform` in `TASK_META`:
+
+- **mobile** — `../tasks/<NN>/` — `*.png` screens and their
+  `*_human_interaction_annotation.json` siblings side by side, plus an
+  optional `dataset_selection.json` for the in-dataset flag.
+- **web** — `../../web/tasks/<id>/` — screens in `pages/*.png`, annotations in
+  `interaction/*_human_interaction_annotation.json`. No curation pass exists
+  for web tasks yet, so every page is published as in-dataset.
 
 ```sh
-python3 build.py            # incremental: re-encodes only changed screenshots
-python3 build.py --force    # re-encode everything
-python3 build.py --tasks 04 # a single task (or a subset, space-separated)
+python3 build.py                      # incremental: re-encodes only changed screenshots
+python3 build.py --force              # re-encode everything
+python3 build.py --tasks 04           # a single task (or a subset, space-separated)
+python3 build.py --tasks 1_newsletter # works the same for web task ids
 ```
 
 Requires [Pillow](https://pillow.readthedocs.io/). Add new tasks to the
