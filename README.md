@@ -1,8 +1,10 @@
 # Mobile Anchor Tasks — Interaction Annotation Explorer
 
 A static site for browsing human interaction annotations over mobile UI screens
-extracted from Figma community UI kits. Currently publishing task 04 (Food
-Delivery): 73 annotated screens, 791 annotations, 439 navigation edges.
+extracted from Figma community UI kits. Publishing 8 tasks — Medical /
+HealthTrack, Fitness / Workout, Home Decor, Food Delivery, Recipe / Cooking,
+Finance Management, AI Chat / Bot Creator, and Shopping — 634 annotated
+screens, 5591 annotations in total.
 
 - **Gallery** — every annotated screen of an app, with its interactive regions
   outlined on the thumbnail.
@@ -52,7 +54,7 @@ and their `*_human_interaction_annotation.json` siblings, plus
 ```sh
 python3 build.py            # incremental: re-encodes only changed screenshots
 python3 build.py --force    # re-encode everything
-python3 build.py --tasks 04 # a single task
+python3 build.py --tasks 04 # a single task (or a subset, space-separated)
 ```
 
 Requires [Pillow](https://pillow.readthedocs.io/). Add new tasks to the

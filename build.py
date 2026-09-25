@@ -25,12 +25,16 @@ ROOT = Path(__file__).resolve().parent
 TASKS = ROOT.parent / "tasks"
 
 # task id -> (display name, figma file description)
-# Only the tasks listed here are published. Others annotated so far:
-#   01 Medical / HealthTrack   — ~3.7 annotations/screen, thin
-#   03 Home Decor              — exactly 1 annotation/screen, a stub
-#   06 Finance Management      — complete
+# Only the tasks listed here are published.
 TASK_META = {
+    "01": ("Medical / HealthTrack", "Healthcare App UI Kit — doctor booking & appointments"),
+    "02": ("Fitness / Workout", "Fitness Coach App UI Kit — workouts & weekly challenges"),
+    "03": ("Home Decor", "Home Decor App UI Kit — furniture shopping & room categories"),
     "04": ("Food Delivery", "Food Delivery App UI Kit — ordering & delivery"),
+    "05": ("Recipe / Cooking", "Recipe App UI Kit — recipes, collections & creator profiles"),
+    "06": ("Finance Management", "Finance App UI Kit — accounts, transactions & security"),
+    "07": ("AI Chat / Bot Creator", "AI Companion App UI Kit — chat, bot creation & discovery"),
+    "08": ("Shopping", "Shopping App UI Kit — accounts, flash sales & checkout"),
 }
 
 ANN_SUFFIX = "_human_interaction_annotation.json"

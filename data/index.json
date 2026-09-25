@@ -1,20 +1,130 @@
 {
   "tasks": [
     {
+      "id": "01",
+      "name": "Medical / HealthTrack",
+      "description": "Healthcare App UI Kit — doctor booking & appointments",
+      "pages": 60,
+      "included": 59,
+      "annotations": 409,
+      "by_type": {
+        "navigate": 236,
+        "input": 37,
+        "toggle": 18,
+        "click": 114,
+        "scroll": 4
+      },
+      "cover": "01A_First_Screen"
+    },
+    {
+      "id": "02",
+      "name": "Fitness / Workout",
+      "description": "Fitness Coach App UI Kit — workouts & weekly challenges",
+      "pages": 93,
+      "included": 91,
+      "annotations": 770,
+      "by_type": {
+        "navigate": 566,
+        "click": 170,
+        "input": 22,
+        "scroll": 3,
+        "toggle": 9
+      },
+      "cover": "01A_Launch"
+    },
+    {
+      "id": "03",
+      "name": "Home Decor",
+      "description": "Home Decor App UI Kit — furniture shopping & room categories",
+      "pages": 68,
+      "included": 63,
+      "annotations": 537,
+      "by_type": {
+        "navigate": 371,
+        "click": 128,
+        "input": 22,
+        "toggle": 15,
+        "scroll": 1
+      },
+      "cover": "01A_Launch"
+    },
+    {
       "id": "04",
       "name": "Food Delivery",
       "description": "Food Delivery App UI Kit — ordering & delivery",
-      "pages": 73,
-      "included": 57,
-      "annotations": 791,
+      "pages": 74,
+      "included": 58,
+      "annotations": 800,
       "by_type": {
-        "navigate": 439,
+        "navigate": 451,
         "input": 38,
-        "toggle": 34,
-        "click": 275,
+        "toggle": 32,
+        "click": 274,
         "scroll": 5
       },
       "cover": "00A_Launch_First_Screen"
+    },
+    {
+      "id": "05",
+      "name": "Recipe / Cooking",
+      "description": "Recipe App UI Kit — recipes, collections & creator profiles",
+      "pages": 113,
+      "included": 99,
+      "annotations": 1035,
+      "by_type": {
+        "toggle": 205,
+        "click": 130,
+        "navigate": 677,
+        "input": 23
+      },
+      "cover": "03A_Login"
+    },
+    {
+      "id": "06",
+      "name": "Finance Management",
+      "description": "Finance App UI Kit — accounts, transactions & security",
+      "pages": 80,
+      "included": 71,
+      "annotations": 725,
+      "by_type": {
+        "navigate": 421,
+        "click": 212,
+        "input": 61,
+        "toggle": 31
+      },
+      "cover": "01A_Launch"
+    },
+    {
+      "id": "07",
+      "name": "AI Chat / Bot Creator",
+      "description": "AI Companion App UI Kit — chat, bot creation & discovery",
+      "pages": 45,
+      "included": 37,
+      "annotations": 434,
+      "by_type": {
+        "navigate": 179,
+        "click": 188,
+        "input": 18,
+        "toggle": 47,
+        "scroll": 2
+      },
+      "cover": "01_Activity_Page_-_Creators"
+    },
+    {
+      "id": "08",
+      "name": "Shopping",
+      "description": "Shopping App UI Kit — accounts, flash sales & checkout",
+      "pages": 101,
+      "included": 98,
+      "annotations": 881,
+      "by_type": {
+        "navigate": 522,
+        "input": 45,
+        "toggle": 98,
+        "click": 200,
+        "scroll": 16
+      },
+      "cover": "01_01_Start"
     }
   ]
 }
